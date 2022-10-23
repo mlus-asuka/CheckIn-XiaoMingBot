@@ -7,11 +7,11 @@ import cn.chuanwise.xiaoming.user.XiaoMingUser;
 import vip.fubuki.CheckInPlugin;
 
 public class TransferInteractors extends SimpleInteractors<CheckInPlugin> {
-    @Filter("转账 {ID} {Amount}")
-    public void Transfer(XiaoMingUser user, @FilterParameter("ID") long ID,@FilterParameter("Amount") int Amount){
+    @Filter("转账 {qq} {Amount}")
+    public void Transfer(XiaoMingUser user, @FilterParameter("qq") long qq,@FilterParameter("Amount") int Amount){
         Integer UserPoint=CheckInPlugin.pointData.getPoints(user.getCode());
         if(CheckInPlugin.configuration.getEnableTransfer()){
-            if(UserPoint==null||CheckInPlugin.pointData.getPoints(ID)==null){
+            if(UserPoint==null||CheckInPlugin.pointData.getPoints(qq)==null){
                 user.sendMessage("没有对应的用户数据");
             }
             else{
@@ -24,10 +24,10 @@ public class TransferInteractors extends SimpleInteractors<CheckInPlugin> {
                 }
                 else{
                     UserPoint=UserPoint-Amount;
-                    Integer ReceivePoint=CheckInPlugin.pointData.getPoints(ID);
+                    Integer ReceivePoint=CheckInPlugin.pointData.getPoints(qq);
                     ReceivePoint=ReceivePoint+Amount;
                     CheckInPlugin.pointData.setPoints(user.getCode(),UserPoint);
-                    CheckInPlugin.pointData.setPoints(ID,ReceivePoint);
+                    CheckInPlugin.pointData.setPoints(qq,ReceivePoint);
                     user.sendMessage("转账成功,当前积分:"+UserPoint);
                 }
             }

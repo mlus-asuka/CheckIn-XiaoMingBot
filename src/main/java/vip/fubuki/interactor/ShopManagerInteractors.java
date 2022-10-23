@@ -66,7 +66,7 @@ public class ShopManagerInteractors extends SimpleInteractors<CheckInPlugin> {
         user.sendMessage("成功将商品ID:"+ID+"的物品价格更改为:"+Price);
     }
     @Required("admin")
-    @Filter("设置积分 {User} {Point}")
+    @Filter("设置积分 {qq} {Point}")
     public void SetPoint(XiaoMingUser user,@FilterParameter("User") long qq,@FilterParameter("Point") int Point) {
         if (CheckInPlugin.pointData.getPoints(qq) != null) {
             CheckInPlugin.pointData.setPoints(qq, Point);
@@ -75,7 +75,7 @@ public class ShopManagerInteractors extends SimpleInteractors<CheckInPlugin> {
         else user.sendMessage("该用户还没有记录。");
     }
     @Required("admin")
-    @Filter("加积分 {User} {Point}")
+    @Filter("加积分 {qq} {Point}")
     public void AddPoint(XiaoMingUser user,@FilterParameter("User") long qq,@FilterParameter("Point") int Point) {
         Integer Former = CheckInPlugin.pointData.getPoints(qq);
         CheckInPlugin.pointData.setPoints(qq, Former + Point);

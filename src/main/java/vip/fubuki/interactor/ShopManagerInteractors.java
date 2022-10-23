@@ -56,4 +56,32 @@ public class ShopManagerInteractors extends SimpleInteractors<CheckInPlugin> {
             user.sendMessage("补货成功,当前余量:"+PreAmount+"\n提示:当余量为-1时将被认为是不限量的。");
         }
     }
+
+    @Required("admin")
+    @Filter("改价格 {ID} {Price}")
+    public void ChangePrice(XiaoMingUser user,@FilterParameter("ID") int ID,@FilterParameter("Price") int Price){
+        Goods good =CheckInPlugin.shopData.getGoods(ID);
+        good.setPrice(Price);
+        CheckInPlugin.shopData.setGoods(ID,good);
+        user.sendMessage("成功将商品ID:"+ID+"的物品价格更改为:"+Price);
+    }
+    @Required("admin")
+    @Filter("设置积分 {User} {Point}")
+    public void SetPoint(XiaoMingUser user,@FilterParameter("User") long qq,@FilterParameter("Point") int Point) {
+        if (CheckInPlugin.pointData.getPoints(qq) != null) {
+            CheckInPlugin.pointData.setPoints(qq, Point);
+            user.sendMessage("成功设置用户:" + getXiaoMingBot().getContactManager().getPrivateContactPossibly(qq).get(0).getName() + "的积分为:" + Point);
+        }
+        else user.sendMessage("该用户还没有记录。");
+    }
+    @Required("admin")
+    @Filter("加积分 {User} {Point}")
+    public void AddPoint(XiaoMingUser user,@FilterParameter("User") long qq,@FilterParameter("Point") int Point) {
+        Integer Former = CheckInPlugin.pointData.getPoints(qq);
+        CheckInPlugin.pointData.setPoints(qq, Former + Point);
+        if (Former != null) {
+            user.sendMessage("成功为用户" + getXiaoMingBot().getContactManager().getPrivateContactPossibly(qq).get(0).getName() + "加了" + Point + "积分");
+        }
+        else user.sendMessage("该用户还没有记录。");
+    }
     }

@@ -5,10 +5,7 @@ import vip.fubuki.data.DataWriter;
 import vip.fubuki.data.ShopData;
 import vip.fubuki.data.UserData;
 import vip.fubuki.eventListener.Listener;
-import vip.fubuki.interactor.MainInteractors;
-import vip.fubuki.interactor.QueryInteractors;
-import vip.fubuki.interactor.ShopInteractors;
-import vip.fubuki.interactor.ShopManagerInteractors;
+import vip.fubuki.interactor.*;
 
 import java.io.File;
 
@@ -25,6 +22,7 @@ public class CheckInPlugin extends JavaPlugin {
         getXiaoMingBot().getInteractorManager().registerInteractors(new ShopInteractors(),this);
         getXiaoMingBot().getInteractorManager().registerInteractors(new QueryInteractors(),this);
         getXiaoMingBot().getInteractorManager().registerInteractors(new ShopManagerInteractors(),this);
+        getXiaoMingBot().getInteractorManager().registerInteractors(new TransferInteractors(),this);
         getXiaoMingBot().getEventManager().registerListeners(new Listener(), CheckInPlugin.getInstance());
         getLogger().info("打卡插件启动成功。");
     }

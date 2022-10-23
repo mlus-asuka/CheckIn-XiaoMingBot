@@ -11,8 +11,7 @@ public class UserData extends SimplePreservable {
     Map<Long, String> LastChecked=new HashMap<>();
 
     public Integer getPoints(Long UserQQ) {
-        Integer point=Points.get(UserQQ);
-        return point;
+        return Points.get(UserQQ);
     }
 
     public void setPoints(Long UserQQ,Integer NewPoint) {
@@ -36,4 +35,5 @@ public class UserData extends SimplePreservable {
     public void RemoveData(Long UserQQ){
         LastChecked.remove(UserQQ);
     }
+
 }

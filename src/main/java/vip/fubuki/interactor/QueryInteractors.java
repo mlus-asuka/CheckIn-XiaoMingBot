@@ -15,12 +15,16 @@ public class QueryInteractors extends SimpleInteractors<CheckInPlugin> {
    @Name("UserQuery")
    @Filter("我的积分")
     public void Query(XiaoMingUser user){
-       if(CheckInPlugin.pointData.getPoints(user.getCode())==null){
-           user.sendMessage("你有个锤子积分。");
-           CheckInPlugin.pointData.setPoints(user.getCode(), 0);
+       if(CheckInPlugin.configuration.getEnableQuery()) {
+           if (CheckInPlugin.pointData.getPoints(user.getCode()) == null) {
+               user.sendMessage("你有个锤子积分。");
+               CheckInPlugin.pointData.setPoints(user.getCode(), 0);
+           } else {
+               user.sendMessage("当前积分:" + CheckInPlugin.pointData.getPoints(user.getCode()));
+           }
        }
        else{
-           user.sendMessage("当前积分:"+CheckInPlugin.pointData.getPoints(user.getCode()));
+           user.sendMessage("当前管理员配置不允许查看积分。");
        }
    }
 
@@ -32,7 +36,6 @@ public class QueryInteractors extends SimpleInteractors<CheckInPlugin> {
        if (qq == 123) {
            qq = user.getCode();
        }
-
        if (CheckInPlugin.pointData.getPoints(qq) == null) {
            user.sendMessage("当前用户尚未有积分记录。");
        } else {

@@ -2,7 +2,6 @@ package vip.fubuki.interactor;
 
 import cn.chuanwise.xiaoming.annotation.Filter;
 import cn.chuanwise.xiaoming.annotation.FilterParameter;
-import cn.chuanwise.xiaoming.annotation.Filters;
 import cn.chuanwise.xiaoming.annotation.Name;
 import cn.chuanwise.xiaoming.interactor.SimpleInteractors;
 import cn.chuanwise.xiaoming.user.XiaoMingUser;
@@ -26,7 +25,7 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
         Integer index = CheckInPlugin.shopData.GetIndex();
         Integer Scanned=0;
         LastPage=page;
-        String text="商店页面 当前页:"+page+"\n";
+        String text="商店页面 当前页:"+page+"/"+(Math.floor(index/10)+1)+"\n";
         if (index != 0) {
             for (int i = 1; i <= index;i++) {
                 Goods goods = CheckInPlugin.shopData.getGoods(i);

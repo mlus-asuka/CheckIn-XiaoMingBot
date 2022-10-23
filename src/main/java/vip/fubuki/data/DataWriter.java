@@ -34,5 +34,4 @@ public class DataWriter extends SimplePreservable<CheckInPlugin> {
 
     public Long getShopOwner() {return ShopOwner;}
 
-    String information = "别看了，以上功能暂时还没写。";
 }

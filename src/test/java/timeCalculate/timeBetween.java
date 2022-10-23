@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class TimeBetween {
+public class timeBetween {
 
     @Test
     public void Test() throws ParseException {

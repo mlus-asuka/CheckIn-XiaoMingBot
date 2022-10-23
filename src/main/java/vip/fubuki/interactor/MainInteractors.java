@@ -8,33 +8,34 @@ import vip.fubuki.CheckInPlugin;
 import vip.fubuki.util.CalculateCode;
 import vip.fubuki.util.Words;
 
-import java.text.ParseException;
 
 
 @SuppressWarnings("ALL")
 public class MainInteractors extends SimpleInteractors<CheckInPlugin> {
     private Integer MaxPointPerTime;
 
-    public void LoadConfiguration(){
+    public void LoadConfiguration() {
         MaxPointPerTime = CheckInPlugin.configuration.getMaxPointPerTime();
     }
 
     @Name("CheckIn")
     @Filter(Words.CheckIn)
 //    @RequireGroupTag("CheckIn")
-    public void CheckIn(XiaoMingUser user){
-        boolean Checked;
+    public void CheckIn(XiaoMingUser user) {
+        boolean Checked = false;
 
-        try {
-            Checked= CalculateCode.TimeCalculate(user);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+        if (CheckInPlugin.configuration.getWhetherRefreshInDawn()) {
+            Checked = CalculateCode.CalculateMethod2(user);
+        } else {
+            Checked = CalculateCode.TimeCalculate(user);
         }
 
-        if(Checked){
-          CheckInSucessful(user);
-      }
-    }
+
+        if(Checked) {
+        CheckInSucessful(user);
+        }
+
+}
 
     public void CheckInSucessful(XiaoMingUser user){
         LoadConfiguration();
@@ -53,5 +54,4 @@ public class MainInteractors extends SimpleInteractors<CheckInPlugin> {
         CheckInPlugin.pointData.RefreshTime(userQQ,CalculateCode.GetLocalTime());
         user.sendMessage("签到成功，获得:"+randomPlus+"积分。");
     }
-
 }

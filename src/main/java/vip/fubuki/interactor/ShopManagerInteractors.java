@@ -7,6 +7,7 @@ import cn.chuanwise.xiaoming.interactor.SimpleInteractors;
 import cn.chuanwise.xiaoming.user.XiaoMingUser;
 import vip.fubuki.CheckInPlugin;
 import vip.fubuki.util.Goods;
+import vip.fubuki.util.Words;
 
 @SuppressWarnings("ALL")
 public class ShopManagerInteractors extends SimpleInteractors<CheckInPlugin> {
@@ -41,7 +42,7 @@ public class ShopManagerInteractors extends SimpleInteractors<CheckInPlugin> {
     }
 
     @Required("admin")
-    @Filter("补货 {ID} {Amount}")
+    @Filter(Words.Replenish +" {ID} {Amount}")
     public void Replenishment(XiaoMingUser user,@FilterParameter("ID") int id,@FilterParameter("Amount") int Amount){
         if (id <= 0 || id > CheckInPlugin.shopData.GetIndex()) {
             user.sendMessage("操作失败,没有此ID的商品。");
@@ -67,7 +68,7 @@ public class ShopManagerInteractors extends SimpleInteractors<CheckInPlugin> {
     }
     @Required("admin")
     @Filter("设置积分 {qq} {Point}")
-    public void SetPoint(XiaoMingUser user,@FilterParameter("User") long qq,@FilterParameter("Point") int Point) {
+    public void SetPoint(XiaoMingUser user,@FilterParameter("qq") long qq,@FilterParameter("Point") int Point) {
         if (CheckInPlugin.pointData.getPoints(qq) != null) {
             CheckInPlugin.pointData.setPoints(qq, Point);
             user.sendMessage("成功设置用户:" + getXiaoMingBot().getContactManager().getPrivateContactPossibly(qq).get(0).getName() + "的积分为:" + Point);
@@ -76,7 +77,7 @@ public class ShopManagerInteractors extends SimpleInteractors<CheckInPlugin> {
     }
     @Required("admin")
     @Filter("加积分 {qq} {Point}")
-    public void AddPoint(XiaoMingUser user,@FilterParameter("User") long qq,@FilterParameter("Point") int Point) {
+    public void AddPoint(XiaoMingUser user,@FilterParameter("qq") long qq,@FilterParameter("Point") int Point) {
         Integer Former = CheckInPlugin.pointData.getPoints(qq);
         CheckInPlugin.pointData.setPoints(qq, Former + Point);
         if (Former != null) {

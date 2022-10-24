@@ -9,6 +9,10 @@ public class Words extends CommandWords {
         QUERY="(查询积分|查看积分|query point)",
         CheckIn="(打卡|签到|check)",
         Shop="(商店|商城|shop)",
+        Transfer="(转账|转钱|transfer)",
+        Previous="(上一页|previous)",
+        Next="(下一页|翻页|next)",
+        Quit=("退出|结束|quit"),
+        Replenish=("补货|补充| replenish");
 
-        Transfer="(转账|转钱|transfer)";
 }

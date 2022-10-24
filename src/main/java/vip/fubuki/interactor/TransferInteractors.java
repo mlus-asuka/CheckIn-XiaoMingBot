@@ -24,10 +24,8 @@ public class TransferInteractors extends SimpleInteractors<CheckInPlugin> {
                             user.sendMessage("转账失败,积分不足。");
                         } else {
                             UserPoint = UserPoint - Amount;
-                            Integer ReceivePoint = CheckInPlugin.pointData.getPoints(qq);
-                            ReceivePoint = ReceivePoint + Amount;
                             CheckInPlugin.pointData.setPoints(user.getCode(), UserPoint);
-                            CheckInPlugin.pointData.setPoints(qq, ReceivePoint);
+                            CheckInPlugin.pointData.setPoints(qq, CheckInPlugin.pointData.getPoints(qq)+Amount);
                             user.sendMessage("转账成功,当前积分:" + UserPoint);
                         }
                     }

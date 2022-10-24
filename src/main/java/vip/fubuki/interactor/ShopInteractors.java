@@ -63,21 +63,21 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
         }
     }
 
-    @Filter("上一页")
+    @Filter(Words.Previous)
     public void PrePage(XiaoMingUser user){
         if(user.hasTag("QueringShop")){
             Shop(user,LastPage-1);
         }
     }
 
-    @Filter("下一页")
+    @Filter(Words.Next)
     public void NextPage(XiaoMingUser user){
         if(user.hasTag("QueringShop")){
             Shop(user,LastPage+1);
         }
     }
 
-    @Filter("退出")
+    @Filter(Words.Quit)
     public void QuitQuery(XiaoMingUser user){
         if(user.hasTag("QueringShop")){
             user.removeTag("QueringShop");

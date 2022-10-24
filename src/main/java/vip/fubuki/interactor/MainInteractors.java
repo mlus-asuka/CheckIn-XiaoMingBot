@@ -20,7 +20,6 @@ public class MainInteractors extends SimpleInteractors<CheckInPlugin> {
 
     @Name("CheckIn")
     @Filter(Words.CheckIn)
-//    @RequireGroupTag("CheckIn")
     public void CheckIn(XiaoMingUser user) {
         boolean Checked = false;
 

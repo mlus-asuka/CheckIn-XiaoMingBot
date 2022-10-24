@@ -8,5 +8,7 @@ public class Words extends CommandWords {
         BUY="(购买|buy|purchase)",
         QUERY="(查询积分|查看积分|query point)",
         CheckIn="(打卡|签到|check)",
-        Shop="(商店|商城|shop)";
+        Shop="(商店|商城|shop)",
+
+        Transfer="(转账|转钱|transfer)";
 }

@@ -92,10 +92,6 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
         Integer Amount = Buying.getAmount();
         Long ShopOwner = CheckInPlugin.configuration.getShopOwner();
 
-        if(UserPoint==null){
-            Initialization primary=new Initialization();
-            primary.PrimaryData(user.getCode());
-        }
 
         if (Price==null) {
             user.sendMessage("购买失败，没有此ID对应的商品");
@@ -108,6 +104,8 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
                 user.sendMessage("积分不足,购买失败,当前积分:" + UserPoint + ",所需积分:" + Price);
             }
             else if(UserPoint==null){
+                Initialization primary=new Initialization();
+                primary.PrimaryData(user.getCode());
                 user.sendMessage("你买个锤子呢,你有分吗？");
             }
             else {

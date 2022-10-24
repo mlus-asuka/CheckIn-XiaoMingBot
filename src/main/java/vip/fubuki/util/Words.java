@@ -12,7 +12,7 @@ public class Words extends CommandWords {
         Transfer="(转账|转钱|transfer)",
         Previous="(上一页|previous)",
         Next="(下一页|翻页|next)",
-        Quit=("退出|结束|quit"),
-        Replenish=("补货|补充| replenish");
+        Quit="(退出|结束|quit)",
+        Replenish="(补货|补充| replenish)";
 
 }

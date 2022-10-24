@@ -25,7 +25,7 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
         Integer index = CheckInPlugin.shopData.GetIndex();
         Integer Scanned=0;
         LastPage=page;
-        String text="商店页面 当前页:"+page+"/"+(Math.floor(index/10)+1)+"\n";
+        String text="商店页面 当前页:"+page+"/"+(int)(Math.floor(index/10)+1)+"\n";
         if (index != 0) {
             for (int i = 1; i <= index;i++) {
                 Goods goods = CheckInPlugin.shopData.getGoods(i);
@@ -33,8 +33,11 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
                 Integer price = goods.getPrice();
                 Integer amount = goods.getAmount();
                 Boolean WhetherUnderCarriaged=goods.getBoolean();
-                if(!WhetherUnderCarriaged){
-                    Goodlist.add(Scanned,"商品ID:"+i+",商品名称:"+name+",价格:"+price+"积分,"+"余量:"+amount+"\n");
+                if(!WhetherUnderCarriaged) {
+                    if (amount == -1) {
+                        Goodlist.add(Scanned, "商品ID:" + i + ",商品名称:" + name + ",价格:" + price + "积分," + "余量:无限" + "\n");
+                    }
+                    else Goodlist.add(Scanned, "商品ID:" + i + ",商品名称:" + name + ",价格:" + price + "积分," + "余量:" + amount + "\n");
                     Scanned++;
                 }
             }

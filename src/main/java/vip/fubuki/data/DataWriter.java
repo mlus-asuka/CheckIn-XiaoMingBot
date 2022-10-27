@@ -46,6 +46,7 @@ public class DataWriter extends SimplePreservable<CheckInPlugin> {
 
     public void setEnabledGroup(Map<Long,Boolean> enabledGroup) {
         EnabledGroup = enabledGroup;
+        readyToSave();
     }
 
     public Boolean CheckEnabled(long groupcode){

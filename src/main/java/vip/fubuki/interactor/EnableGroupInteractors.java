@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class EnableGroupInteractors extends SimpleInteractors {
     @Required("checkin.admin.enable")
-    @Filter(Words.ENABLE+" {group}")
+    @Filter(Words.ENABLE+"打卡 {group}")
     public void enableGroup(XiaoMingUser user, @FilterParameter("group") long group){
         Map<Long,Boolean> groupList=CheckInPlugin.getInstance().getConfiguration().getEnabledGroup();
         groupList.put(group,true);
@@ -19,7 +19,7 @@ public class EnableGroupInteractors extends SimpleInteractors {
         user.sendMessage("成功启用QQ群:"+group+"打卡功能。");
     }
     @Required("checkin.admin.enable")
-    @Filter(Words.DISABLE+" {group}")
+    @Filter(Words.DISABLE+"打卡 {group}")
     public void disableGroup(XiaoMingUser user, @FilterParameter("group") long group){
         Map<Long,Boolean> groupList=CheckInPlugin.getInstance().getConfiguration().getEnabledGroup();
         groupList.remove(group);

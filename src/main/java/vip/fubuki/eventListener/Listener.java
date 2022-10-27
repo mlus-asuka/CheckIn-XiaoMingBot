@@ -10,8 +10,8 @@ public class Listener extends SimpleListeners<CheckInPlugin> {
 //    Auto Remove Data When user quit group
     @EventListener
     public void OnLeaveEvent(MemberLeaveEvent event){
-        CheckInPlugin.pointData.removePoints(event.getMember().getId());
-        CheckInPlugin.pointData.RemoveData(event.getMember().getId());
+        CheckInPlugin.getInstance().getPointData().removePoints(event.getMember().getId());
+        CheckInPlugin.getInstance().getPointData().RemoveData(event.getMember().getId());
     }
 
 }

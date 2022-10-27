@@ -4,6 +4,6 @@ import vip.fubuki.CheckInPlugin;
 
 public class Initialization {
     public void PrimaryData(Long UserQQ){
-        CheckInPlugin.pointData.setPoints(UserQQ,0);
+        CheckInPlugin.getInstance().getPointData().setPoints(UserQQ,0);
     }
 }

@@ -10,9 +10,9 @@ import vip.fubuki.util.Words;
 public class TransferInteractors extends SimpleInteractors<CheckInPlugin> {
     @Filter(Words.Transfer +" {qq} {Amount}")
     public void Transfer(XiaoMingUser user, @FilterParameter("qq") long qq,@FilterParameter("Amount") int Amount){
-        Integer UserPoint=CheckInPlugin.pointData.getPoints(user.getCode());
-        if(CheckInPlugin.configuration.getEnableTransfer()){
-            if(UserPoint==null||CheckInPlugin.pointData.getPoints(qq)==null){
+        Integer UserPoint=CheckInPlugin.getInstance().getPointData().getPoints(user.getCode());
+        if(CheckInPlugin.getInstance().getConfiguration().getEnableTransfer()){
+            if(UserPoint==null||CheckInPlugin.getInstance().getPointData().getPoints(qq)==null){
                 user.sendMessage("没有对应的用户数据");
             }
             else{
@@ -24,8 +24,8 @@ public class TransferInteractors extends SimpleInteractors<CheckInPlugin> {
                             user.sendMessage("转账失败,积分不足。");
                         } else {
                             UserPoint = UserPoint - Amount;
-                            CheckInPlugin.pointData.setPoints(user.getCode(), UserPoint);
-                            CheckInPlugin.pointData.setPoints(qq, CheckInPlugin.pointData.getPoints(qq)+Amount);
+                            CheckInPlugin.getInstance().getPointData().setPoints(user.getCode(), UserPoint);
+                            CheckInPlugin.getInstance().getPointData().setPoints(qq, CheckInPlugin.getInstance().getPointData().getPoints(qq)+Amount);
                             user.sendMessage("转账成功,当前积分:" + UserPoint);
                         }
                     }

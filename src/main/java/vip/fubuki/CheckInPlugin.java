@@ -23,14 +23,27 @@ public class CheckInPlugin extends JavaPlugin {
         getXiaoMingBot().getInteractorManager().registerInteractors(new QueryInteractors(),this);
         getXiaoMingBot().getInteractorManager().registerInteractors(new ShopManagerInteractors(),this);
         getXiaoMingBot().getInteractorManager().registerInteractors(new TransferInteractors(),this);
+        getXiaoMingBot().getInteractorManager().registerInteractors(new EnableGroupInteractors(),this);
         getXiaoMingBot().getEventManager().registerListeners(new Listener(), CheckInPlugin.getInstance());
         getLogger().info("打卡插件启动成功。");
     }
 
-    public static DataWriter configuration;
-    public static UserData pointData;
+    protected DataWriter configuration;
+    protected UserData pointData;
 
-    public static ShopData shopData;
+    protected ShopData shopData;
+
+    public DataWriter getConfiguration() {
+        return configuration;
+    }
+
+    public UserData getPointData() {
+        return pointData;
+    }
+
+    public ShopData getShopData() {
+        return shopData;
+    }
 
     @Override
     @SuppressWarnings("all")

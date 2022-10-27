@@ -47,10 +47,10 @@ public class CalculateCode {
 
     private static String GetLastTime(Long UserQQ){
         String Time;
-        if (CheckInPlugin.pointData.GetTime(UserQQ)==null){
+        if (CheckInPlugin.getInstance().getPointData().GetTime(UserQQ)==null){
             Time="2022-10-21 00:00:00";
         }else{
-            Time = CheckInPlugin.pointData.GetTime(UserQQ);
+            Time = CheckInPlugin.getInstance().getPointData().GetTime(UserQQ);
         }
 
         return Time;

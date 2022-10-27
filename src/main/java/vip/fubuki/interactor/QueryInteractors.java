@@ -18,6 +18,7 @@ public class QueryInteractors extends SimpleInteractors<CheckInPlugin> {
     public void Query(XiaoMingUser user, GroupXiaoMingUser groupXiaoMingUser) {
        Long groupCode = groupXiaoMingUser.getGroupCode();
        Boolean enabled = CheckInPlugin.getInstance().getConfiguration().CheckEnabled(groupCode);
+       if (enabled==null) enabled=false;
        if (enabled == true) {
            if (CheckInPlugin.getInstance().getConfiguration().getEnableQuery()) {
                if (CheckInPlugin.getInstance().getPointData().getPoints(user.getCode()) == null) {

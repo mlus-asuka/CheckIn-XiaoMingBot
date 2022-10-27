@@ -25,11 +25,13 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
     public void Shop(XiaoMingUser user, @FilterParameter(value = "page", defaultValue = "1") int page, GroupXiaoMingUser groupXiaoMingUser) {
         Long groupCode = groupXiaoMingUser.getGroupCode();
         Boolean enabled = CheckInPlugin.getInstance().getConfiguration().CheckEnabled(groupCode);
+        if (enabled==null) enabled=false;
         if (enabled == true) {
             Integer index = CheckInPlugin.getInstance().getShopData().GetIndex();
             Integer Scanned = 0;
             LastPage = page;
-            String text = "商店页面 当前页:" + page + "/" + (int) (Math.floor(index / 10) + 1) + "\n";
+            int MaxPage= (int) (Math.floor(index / 10) + 1);
+            String text = "商店页面 当前页:" + page + "/" +MaxPage + "\n";
             if (index != 0) {
                 for (int i = 1; i <= index; i++) {
                     Goods goods = CheckInPlugin.getInstance().getShopData().getGoods(i);
@@ -54,7 +56,9 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
                             break;
                         }
                     }
-                    text = text + "回复 上一页 / 下一页 切换页面 回复退出以结束查询";
+                    if(page==1 && MaxPage==1)  text = text + "当前为唯一页 回复退出以结束查询";
+                    else if (page==1) text = text + "回复  下一页 切换页面 回复退出以结束查询";
+                    else text = text + "回复 上一页 / 下一页 切换页面 回复退出以结束查询";
                     user.addTag("QueringShop");
                     user.sendMessage(text);
 
@@ -97,6 +101,7 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
     public void Buy(XiaoMingUser user, @FilterParameter("id") int id, GroupXiaoMingUser groupXiaoMingUser) {
         Long groupCode = groupXiaoMingUser.getGroupCode();
         Boolean enabled = CheckInPlugin.getInstance().getConfiguration().CheckEnabled(groupCode);
+        if (enabled==null) enabled=false;
         if (enabled == true) {
             Goods Buying = CheckInPlugin.getInstance().getShopData().getGoods(id);
             Integer UserPoint = CheckInPlugin.getInstance().getPointData().getPoints(user.getCode());

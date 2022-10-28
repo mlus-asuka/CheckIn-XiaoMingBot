@@ -114,7 +114,10 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
                 user.sendMessage("购买失败，没有此ID对应的商品");
             } else if (Amount == 0) {
                 user.sendMessage("抱歉，此商品暂无存货。");
-            } else {
+            }else if(Buying.getBoolean()) {
+                user.sendMessage("购买失败,该商品已下架。");
+            }
+            else {
                 if (UserPoint < Price) {
                     user.sendMessage("积分不足,购买失败,当前积分:" + UserPoint + ",所需积分:" + Price);
                 } else if (UserPoint == null) {

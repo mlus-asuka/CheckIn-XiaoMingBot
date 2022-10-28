@@ -110,7 +110,7 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
             Long ShopOwner = CheckInPlugin.getInstance().getConfiguration().getShopOwner();
 
 
-            if (Price == null) {
+            if (Buying == null) {
                 user.sendMessage("购买失败，没有此ID对应的商品");
             } else if (Amount == 0) {
                 user.sendMessage("抱歉，此商品暂无存货。");

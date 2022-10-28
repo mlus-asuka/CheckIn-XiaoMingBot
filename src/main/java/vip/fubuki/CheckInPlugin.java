@@ -24,6 +24,7 @@ public class CheckInPlugin extends JavaPlugin {
         getXiaoMingBot().getInteractorManager().registerInteractors(new ShopManagerInteractors(),this);
         getXiaoMingBot().getInteractorManager().registerInteractors(new TransferInteractors(),this);
         getXiaoMingBot().getInteractorManager().registerInteractors(new EnableGroupInteractors(),this);
+        getXiaoMingBot().getInteractorManager().registerInteractors(new ReloadInteractors(),this);
         getXiaoMingBot().getEventManager().registerListeners(new Listener(), CheckInPlugin.getInstance());
         getLogger().info("打卡插件启动成功。");
     }

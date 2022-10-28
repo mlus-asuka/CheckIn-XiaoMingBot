@@ -16,10 +16,6 @@ public class QueryInteractors extends SimpleInteractors<CheckInPlugin> {
    @Name("UserQuery")
    @Filter("我的积分")
     public void Query(XiaoMingUser user, GroupXiaoMingUser groupXiaoMingUser) {
-       Long groupCode = groupXiaoMingUser.getGroupCode();
-       Boolean enabled = CheckInPlugin.getInstance().getConfiguration().CheckEnabled(groupCode);
-       if (enabled==null) enabled=false;
-       if (enabled == true) {
            if (CheckInPlugin.getInstance().getConfiguration().getEnableQuery()) {
                if (CheckInPlugin.getInstance().getPointData().getPoints(user.getCode()) == null) {
                    user.sendMessage("你有个锤子积分。");
@@ -30,7 +26,6 @@ public class QueryInteractors extends SimpleInteractors<CheckInPlugin> {
            } else {
                user.sendMessage("当前管理员配置不允许查看积分。");
            }
-       }
    }
 
    @Name("AdminQuery")

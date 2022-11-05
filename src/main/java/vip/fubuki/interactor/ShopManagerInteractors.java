@@ -11,7 +11,7 @@ import vip.fubuki.util.Words;
 
 @SuppressWarnings("ALL")
 public class ShopManagerInteractors extends SimpleInteractors<CheckInPlugin> {
-    @Required("checkin.admin.carriage")
+    @Required("checkin.admin.put")
     @Filter("上架"+" {Name} {Price} {Amount}")
     public void Carriage(XiaoMingUser user, @FilterParameter("Name") String name,@FilterParameter("Price") int Price,@FilterParameter(value = "Amount",defaultValue = "-1") int Amount){
         Integer index=CheckInPlugin.getInstance().getShopData().GetIndex()+1;
@@ -26,18 +26,20 @@ public class ShopManagerInteractors extends SimpleInteractors<CheckInPlugin> {
         user.sendMessage("成功上架一样名称为:"+name+",价格为:"+Price+",存量为:"+Amount+"的货品，ID:"+index);
     }
 
-    @Required("checkin.admin.outcarriage")
+    @Required("checkin.admin.pull")
     @Filter("下架 {ID}")
     public void UnderCarriaged(XiaoMingUser user,@FilterParameter("ID") int id) {
         if (id <= 0 || id > CheckInPlugin.getInstance().getShopData().GetIndex()) {
             user.sendMessage("操作失败,没有此ID的商品。");
         }
         else if(!CheckInPlugin.getInstance().getShopData().getGoods(id).getBoolean()){
-            user.sendMessage("这件商品原本就是下架的。");
+            Goods New=CheckInPlugin.getInstance().getShopData().getGoods(id);
+            New.setBoolean(true);
+            CheckInPlugin.getInstance().getShopData().setGoods(id,New);
+            user.sendMessage("成功下架ID:" + id + "的商品。");
         }
         else{
-            CheckInPlugin.getInstance().getShopData().getGoods(id).setBoolean(true);
-            user.sendMessage("成功下架ID" + id + "的商品。");
+            user.sendMessage("这件商品原本就是下架的。");
         }
     }
 

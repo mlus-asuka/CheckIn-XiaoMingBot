@@ -51,6 +51,7 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
                     user.sendMessage("页码超出商品列表。");
                 } else {
                     for (int i = (page * 10 - 9); i <= page * 10; i++) {
+                        if(Goodlist.get(i-1)==null) break;
                         text = text + Goodlist.get(i - 1);
                         if (i == Scanned) {
                             break;

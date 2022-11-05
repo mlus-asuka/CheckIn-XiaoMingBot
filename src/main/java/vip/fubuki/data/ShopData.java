@@ -10,7 +10,7 @@ import java.util.Map;
 public class ShopData extends SimplePreservable<CheckInPlugin> {
 
     Integer ID_Index=0;
-    final Map<Integer, Goods> goods=new HashMap<>();
+    Map<Integer, Goods> goods=new HashMap<>();
 
     public Goods getGoods(Integer id) {
         return goods.get(id);

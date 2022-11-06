@@ -30,8 +30,6 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
             Integer index = CheckInPlugin.getInstance().getShopData().GetIndex();
             Integer Scanned = 0;
             LastPage = page;
-            int MaxPage= (int) (Math.floor(index / 10) + 1);
-            String text = "商店页面 当前页:" + page + "/" +MaxPage + "\n";
             if (index != 0) {
                 for (int i = 1; i <= index; i++) {
                     Goods goods = CheckInPlugin.getInstance().getShopData().getGoods(i);
@@ -47,11 +45,12 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
                         Scanned++;
                     }
                 }
+                int MaxPage= (int) (Math.floor(Scanned / 10) + 1);
+                String text = "商店页面 当前页:" + page + "/" +MaxPage + "\n";
                 if ((page - 1) * 10 > index || page == 0) {
                     user.sendMessage("页码超出商品列表。");
                 } else {
                     for (int i = (page * 10 - 9); i <= page * 10; i++) {
-                        if(Goodlist.size()<i-1) break;
                         text = text + Goodlist.get(i - 1);
                         if (i == Scanned) {
                             break;

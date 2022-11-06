@@ -45,7 +45,9 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
                         Scanned++;
                     }
                 }
-                int MaxPage= (int) Math.ceil(Scanned / 10);
+                float a=(float) Scanned;
+                float b=(float) 10;
+                int MaxPage= (int) Math.ceil(a/b);
                 String text = "商店页面 当前页:" + page + "/" +MaxPage + "\n";
                 if ((page - 1) * 10 > Scanned || page == 0) {
                     user.sendMessage("页码超出商品列表。");

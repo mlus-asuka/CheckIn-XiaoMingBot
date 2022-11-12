@@ -58,6 +58,13 @@ public class CheckInPlugin extends JavaPlugin {
         configuration = setupConfiguration(DataWriter.class,"configuration.json",DataWriter::new);
         pointData = setupConfiguration(UserData.class,"point.json",UserData::new);
         shopData = setupConfiguration(ShopData.class,"shop.json",ShopData::new);
+        LoadConfiguration();
+    }
+
+    public Integer MaxPointPerTime;
+
+    public void LoadConfiguration() {
+        MaxPointPerTime = CheckInPlugin.getInstance().getConfiguration().getMaxPointPerTime();
     }
 
 }

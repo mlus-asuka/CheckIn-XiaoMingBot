@@ -7,42 +7,37 @@ import cn.chuanwise.xiaoming.user.GroupXiaoMingUser;
 import cn.chuanwise.xiaoming.user.XiaoMingUser;
 import vip.fubuki.CheckInPlugin;
 import vip.fubuki.util.CalculateCode;
+import vip.fubuki.util.Result;
 import vip.fubuki.util.Words;
 
 
 
 @SuppressWarnings("ALL")
 public class MainInteractors extends SimpleInteractors<CheckInPlugin> {
-    private Integer MaxPointPerTime;
-
-    public void LoadConfiguration() {
-        MaxPointPerTime = CheckInPlugin.getInstance().getConfiguration().getMaxPointPerTime();
-    }
 
     @Name("CheckIn")
     @Filter(Words.CheckIn)
     public void CheckIn(XiaoMingUser user, GroupXiaoMingUser groupXiaoMingUser) {
-        Long groupCode=groupXiaoMingUser.getGroupCode();
+        long groupCode=groupXiaoMingUser.getGroupCode();
         Boolean enabled=CheckInPlugin.getInstance().getConfiguration().CheckEnabled(groupCode);
         if (enabled==null) enabled=false;
-        if(enabled==true) {
-            boolean Checked = false;
+        if(enabled) {
+            boolean Checked;
 
             if (CheckInPlugin.getInstance().getConfiguration().getWhetherRefreshInDawn()) {
-                Checked = CalculateCode.CalculateMethod2(user);
+                Checked = CalculateCode.CalculateMethod2(user.getCode());
+                if (Checked) CheckInSucessful(user);
+                else user.sendMessage("签到失败,今天已经签到过了。");
             } else {
-                Checked = CalculateCode.TimeCalculate(user);
+                Result result=CalculateCode.TimeCalculate(user.getCode());
+                Checked = result.getChecked();
+                if (Checked) CheckInSucessful(user);
+                else user.sendMessage(result.getMessage());
             }
 
-
-            if (Checked) {
-                CheckInSucessful(user);
-            }
         }
 }
-
     public void CheckInSucessful(XiaoMingUser user){
-        LoadConfiguration();
         Long userQQ = user.getCode();
         Integer Point;
         if(CheckInPlugin.getInstance().getPointData().getPoints(userQQ)==null){
@@ -52,7 +47,7 @@ public class MainInteractors extends SimpleInteractors<CheckInPlugin> {
             Point=CheckInPlugin.getInstance().getPointData().getPoints(userQQ);
         }
 
-        Integer randomPlus=(int)(Math.random()*(MaxPointPerTime+1));
+        Integer randomPlus=(int)(Math.random()*(CheckInPlugin.getInstance().MaxPointPerTime+1));
         Point=Point+randomPlus;
         CheckInPlugin.getInstance().getPointData().setPoints(userQQ,Point);
         CheckInPlugin.getInstance().getPointData().RefreshTime(userQQ,CalculateCode.GetLocalTime());

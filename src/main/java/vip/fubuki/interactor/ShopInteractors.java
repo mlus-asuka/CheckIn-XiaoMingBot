@@ -23,6 +23,7 @@ public class ShopInteractors extends SimpleInteractors<CheckInPlugin> {
     @Filter(Words.Shop)
     @Filter(Words.Shop + " {page}")
     public void Shop(XiaoMingUser user, @FilterParameter(value = "page", defaultValue = "1") int page, GroupXiaoMingUser groupXiaoMingUser) {
+        if(user.hasTag("QueringGameShop")) user.removeTag("QueringGameShop");
         Long groupCode = groupXiaoMingUser.getGroupCode();
         Boolean enabled = CheckInPlugin.getInstance().getConfiguration().CheckEnabled(groupCode);
         if (enabled==null) enabled=false;

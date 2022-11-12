@@ -26,19 +26,18 @@ public class MainInteractors extends SimpleInteractors<CheckInPlugin> {
 
             if (CheckInPlugin.getInstance().getConfiguration().getWhetherRefreshInDawn()) {
                 Checked = CalculateCode.CalculateMethod2(user.getCode());
-                if (Checked) CheckInSucessful(user);
+                if (Checked) user.sendMessage(CheckInSucessful(user.getCode()));
                 else user.sendMessage("签到失败,今天已经签到过了。");
             } else {
                 Result result=CalculateCode.TimeCalculate(user.getCode());
                 Checked = result.getChecked();
-                if (Checked) CheckInSucessful(user);
+                if (Checked) user.sendMessage(CheckInSucessful(user.getCode()));
                 else user.sendMessage(result.getMessage());
             }
 
         }
 }
-    public void CheckInSucessful(XiaoMingUser user){
-        Long userQQ = user.getCode();
+    public String CheckInSucessful(long userQQ){
         Integer Point;
         if(CheckInPlugin.getInstance().getPointData().getPoints(userQQ)==null){
             Point=0;
@@ -51,6 +50,6 @@ public class MainInteractors extends SimpleInteractors<CheckInPlugin> {
         Point=Point+randomPlus;
         CheckInPlugin.getInstance().getPointData().setPoints(userQQ,Point);
         CheckInPlugin.getInstance().getPointData().RefreshTime(userQQ,CalculateCode.GetLocalTime());
-        user.sendMessage("签到成功，获得:"+randomPlus+"积分。");
+        return  ("签到成功，获得:"+randomPlus+"积分。");
     }
 }

@@ -17,6 +17,8 @@ public class DataWriter extends SimplePreservable<CheckInPlugin> {
 
     Boolean EnableTransfer = true;
 
+    Boolean GameOnly= false;
+
     Long ShopOwner=(long)123;
 
     Map<Long,Boolean> EnabledGroup=new HashMap<>();
@@ -51,5 +53,9 @@ public class DataWriter extends SimplePreservable<CheckInPlugin> {
 
     public Boolean CheckEnabled(long groupcode){
         return EnabledGroup.get(groupcode);
+    }
+
+    public Boolean getGameOnly() {
+        return GameOnly;
     }
 }

@@ -21,6 +21,7 @@ public class MainInteractors extends SimpleInteractors<CheckInPlugin> {
         long groupCode=groupXiaoMingUser.getGroupCode();
         Boolean enabled=CheckInPlugin.getInstance().getConfiguration().CheckEnabled(groupCode);
         if (enabled==null) enabled=false;
+        if(CheckInPlugin.getInstance().getConfiguration().getGameOnly()) return;
         if(enabled) {
             boolean Checked;
 
